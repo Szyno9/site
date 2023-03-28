@@ -1,0 +1,49 @@
+.calcframe{
+  background-color: black;
+  padding: 8px;
+  width: 400px;
+}
+.calcframe .row{
+  width: 100%;
+  display: flex;
+  background-color: black;
+}
+.calcframe .row button{
+  width: 100px;
+  height: 100px;
+  font-size: 28pt;
+  font-family:'Century Gothic';
+  color: white;
+  background-color: black;
+  border: none;
+  transition: background-color 0.5s;
+}
+.calcframe .row .spec{
+  color: #0ebbc3;
+  transition: background-color 0.5s;
+}
+.calcframe .row .spec:hover{
+  background-color: #041a2b;
+}
+.calcframe .row .spec:active{
+  background-color: #09304f;
+}
+.calcframe .row .screen{
+  flex: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  height: 60px;
+  margin: 5px;
+  resize: none;
+  overflow: hidden;
+  font-family: 'Century Gothic';
+  font-size: 36pt;
+  text-align: right;
+}
+.calcframe .row button:hover{
+  background-color: #040d25;
+}
+.calcframe .row button:active{
+  background-color: #081742;
+}
