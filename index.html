@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="calc.css" type="text/css">
+    <script>
+        function isNumber(c)
+        {
+            if(c>=0 && c<=9){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        function addNum(num){
+            screen=document.getElementById("screen");
+            screen.placeholder="";
+            if(screen.value=="Infinity" || screen.value=="NaN" || screen.value.length>14)
+            {}
+            else{
+            screen.value+=num;
+            }
+        }
+        function addSymbol(num){
+            screen=document.getElementById("screen");
+            screen.placeholder="";
+            if((screen.value.length==0 || screen.value.slice(-1)) && num=="-"){
+                screen.value+=num;
+            }
+            else if(screen.value.length==0 || screen.value.length>14)
+            {}
+            else if(screen.value.slice(-1)=='-' || screen.value.slice(-1)=='+' || screen.value.slice(-1)=='*' || screen.value.slice(-1)=='/' || screen.value.slice(-1)=='(' || screen.value.slice(-1)=='.')
+            {
+                screen.value=screen.value.slice(0, screen.value.length-1);
+                screen.value+=num;
+                if(screen.value.slice(-2)=='(' && screen.value.slice(-1)!='-'){
+                    screen.value-=screen.value.slice(-1);
+                }
+            }
+            else
+            {
+            screen.value+=num;
+            }
+        }
+        function addOrder()
+        {
+            
+            screen=document.getElementById("screen");
+            screen.placeholder="";
+            if(screen.value.slice(-1)=='-' || screen.value.slice(-1)=='+' || screen.value.slice(-1)=='*' || screen.value.slice(-1)=='/' || screen.value.slice(-1)=='(' || screen.value.length==0)
+            {
+                screen.value+='(';
+            }
+            else if((isNumber(screen.value.slice(-1)) || screen.value.slice(-1)==')') && (screen.value.split("(").length-1>screen.value.split(")").length-1)){
+                screen.value+=')';
+            }
+
+        }
+        function checkOrder(){
+            screen=document.getElementById("screen");
+            if(screen.value.split("(").length-1>screen.value.split(")").length-1){
+                return false;
+            }
+            return true;
+        }
+        function fixOrder(){
+            screen=document.getElementById("screen");
+            if(screen.value.split("(").length-1>screen.value.split(")").length-1){
+                counter=screen.value.split("(").length-screen.value.split(")").length;
+                for(i=0; i<counter; i++){
+                    screen.value+=')';
+                }
+            }
+
+        }
+        function clearScreen(){
+            screen.placeholder="";
+            document.getElementById("screen").value="";
+        }
+        function clearEntry()
+        {
+            screen=document.getElementById("screen");
+            if(screen.value=="Infinity" || screen.value=="NaN"){
+                document.getElementById("screen").value="";
+            }
+            else{
+            screen.value=screen.value.slice(0, screen.value.length-1);
+            }
+        }
+        function evalScreen(){
+            screen=document.getElementById("screen");
+            if(screen.value.slice(-1)=='-' || screen.value.slice(-1)=='+' || screen.value.slice(-1)=='*' || screen.value.slice(-1)=='/' || screen.value.slice(-1)=='(')
+            {
+                screen.value="";
+                screen.placeholder="ERROR";
+            }
+            else if(checkOrder() && screen.value.length>0)
+            {       
+            evaluation=screen.value;
+            result=eval(evaluation);
+            screen.value=result;
+            }
+            else if(screen.value.length>0)
+            {
+                fixOrder();
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="calcframe">
+    <div class="row">
+        <textarea id="screen" class="screen" maxlength="8" readonly></textarea>
+    </div>
+    <div class="row">
+        <button role="button" class="spec" id="nawias" value="()" onclick="addOrder(this.id)">()</button>
+        <button role="button" class="spec" id="/" value="/" onclick="addSymbol(this.id)">/</button>
+        <button role="button" class="spec" id="*" value="*" onclick="addSymbol(this.id)">*</button>
+        <button role="button" class="spec" id="clearentry" value="CE" onclick="clearEntry()">CE</button>
+    </div>
+    <div class="row">
+        <button role="button" id="7" value="7" onclick="addNum(this.id)">7</button>
+        <button role="button" id="8" value="8" onclick="addNum(this.id)">8</button>
+        <button role="button" id="9" value="9" onclick="addNum(this.id)">9</button>
+        <button role="button" class="spec" id="-" value="-" onclick="addSymbol(this.id)">-</button>
+
+    </div>
+    <div class="row">
+        <button role="button" id="4" value="4" onclick="addNum(this.id)">4</button>
+        <button role="button" id="5" value="5" onclick="addNum(this.id)">5</button>
+        <button role="button" id="6" value="6" onclick="addNum(this.id)">6</button>
+        <button role="button" class="spec" id="+" value="+" onclick="addSymbol(this.id)">+</button>
+    </div>
+    <div class="row">
+        <button role="button" id="1" value="1" onclick="addNum(this.id)">1</button>
+        <button role="button" id="2" value="2" onclick="addNum(this.id)">2</button>
+        <button role="button" id="3" value="3" onclick="addNum(this.id)">3</button>        
+        <button role="button" class="spec" id="evaluate" value="=" onclick="evalScreen()">=</button>
+    </div>
+    <div class="row">
+        <button role="button" id="00" value="00" onclick="addNum(this.id)">00</button>
+        <button role="button" id="0" value="0" onclick="addNum(this.id)">0</button>
+        <button role="button" id="." value="." onclick="addNum(this.id)">.</button>
+        <button role="button" class="spec" id="clearscreen" value="C" onclick="clearScreen()">C</button>
+    </div>
+</div>
+
+<p><a href="../index.html">Strona Startowa</a></p>
+</body>
+
+
+</html>
